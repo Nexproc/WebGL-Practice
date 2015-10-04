@@ -2,10 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="jquery-1.11.3.min.js"></script>
     <title>Getting Started</title>
-
   </head>
   <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script type="text/javascript">
+      var gl;
+      $(function (){
+        var canvas = $("canvas");
+        gl = initWebGL(canvas);
 
+        if(gl){
+          gl.clearColor(0.0, 0.0, 0.0, 1.0);
+          gl.enable(gl.DEPTH_TEST);
+          gl.depthFunc(gl.LEQUAL);
+          gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+        }
+      });
+    </script>
   </body>
 </html>
