@@ -2,16 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="jquery-1.11.3.min.js"></script>
+    <script src="jquery-2.1.4.min.js"></script>
     <title>Getting Started</title>
   </head>
   <body>
     <canvas id="canvas" width="300" height="300"></canvas>
     <script type="text/javascript">
-      var gl;
+      var gl = null;
       $(function (){
-        var canvas = $("canvas");
-        gl = initWebGL(canvas);
+        var canvas = $("canvas")[0];
+        initWebGL(canvas);
 
         if(gl){
           gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -20,6 +20,20 @@
           gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
         }
       });
+
+      function initWebGL(canvas) {
+        try {
+          // Try to grab the standard context. If it fails, fallback to experimental.
+          gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        }
+        catch(e) {}
+
+        // If we don't have a GL context, give up now
+        if (!gl) {
+          alert("Unable to initialize WebGL. Your browser may not support it.");
+          gl = null;
+        }
+      }
     </script>
   </body>
 </html>
